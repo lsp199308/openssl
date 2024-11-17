@@ -29,11 +29,9 @@ jobs:
 
     - name: Build OpenSSL
       run: |
-        # 启用错误处理并输出详细信息
-        set -e  # 出错时停止执行
-        # 进入 OpenSSL 目录并执行配置
+        # 确保进入到正确的 openssl-3.1 目录
         C:\msys64\usr\bin\bash.exe -l -c "
-          cd openssl/openssl-3.1
+          cd openssl-3.1
           perl Configure mingw64 --prefix=\$PWD/opt
           make -j$(nproc)  # 使用所有可用的 CPU 核心来加速构建
           make install
@@ -43,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: openssl-opt
-        path: ./openssl/openssl-3.1/opt  # 上传 opt 目录的内容
+        path: ./openssl-3.1/opt  # 上传 opt 目录的内容
